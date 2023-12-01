@@ -43,7 +43,7 @@ def knights_tour(n):
         g.add_clause([variable_matrix[i][j] for j in range(num_vars)])
         for s in range(num_vars):
             for t in range(s+1, num_vars):
-                g.add_clause([-variable_matrix[i][s], -variable_matrix[j][t]])
+                g.add_clause([-variable_matrix[i][s], -variable_matrix[i][t]])
 
     #Valid transitions
     for i in range(num_vars):
@@ -52,6 +52,9 @@ def knights_tour(n):
             for k in neighbors[i]:
                 const.append(variable_matrix[k][j+1])
             g.add_clause(const)
+
+    g.add_clause([variable_matrix[0][0]])
+    g.add_clause([variable_matrix[10][63]])
 
     return g
 
